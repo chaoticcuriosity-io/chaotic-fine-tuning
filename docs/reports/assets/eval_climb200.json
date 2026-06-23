@@ -1,0 +1,7 @@
+{
+  "tag": "climb200",
+  "model": "/workspace/outputs/exp7-grpo-climb/adapter",
+  "gsm8k_n": 200,
+  "gsm8k_accuracy": 0.7,
+  "qualitative_think_rate": 1.0
+}

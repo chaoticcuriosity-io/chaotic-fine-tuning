@@ -1,0 +1,322 @@
+[
+  {
+    "step": 1,
+    "reward": 1.125
+  },
+  {
+    "step": 2,
+    "reward": 2.5
+  },
+  {
+    "step": 3,
+    "reward": 2.5
+  },
+  {
+    "step": 4,
+    "reward": 1.4375
+  },
+  {
+    "step": 5,
+    "reward": 2.5
+  },
+  {
+    "step": 6,
+    "reward": 2.5
+  },
+  {
+    "step": 7,
+    "reward": 2.5
+  },
+  {
+    "step": 8,
+    "reward": 1.5625
+  },
+  {
+    "step": 9,
+    "reward": 2.375
+  },
+  {
+    "step": 10,
+    "reward": 0.75
+  },
+  {
+    "step": 11,
+    "reward": 0.6875
+  },
+  {
+    "step": 12,
+    "reward": 2.5
+  },
+  {
+    "step": 13,
+    "reward": 0.75
+  },
+  {
+    "step": 14,
+    "reward": 2.5
+  },
+  {
+    "step": 15,
+    "reward": 1.5
+  },
+  {
+    "step": 16,
+    "reward": 2.5
+  },
+  {
+    "step": 17,
+    "reward": 1.5
+  },
+  {
+    "step": 18,
+    "reward": 2.1875
+  },
+  {
+    "step": 19,
+    "reward": 2.5
+  },
+  {
+    "step": 20,
+    "reward": 1.6875
+  },
+  {
+    "step": 21,
+    "reward": 1.5
+  },
+  {
+    "step": 22,
+    "reward": 2.25
+  },
+  {
+    "step": 23,
+    "reward": 2.25
+  },
+  {
+    "step": 24,
+    "reward": 0.75
+  },
+  {
+    "step": 25,
+    "reward": 1.5
+  },
+  {
+    "step": 26,
+    "reward": 2.0
+  },
+  {
+    "step": 27,
+    "reward": 2.5
+  },
+  {
+    "step": 28,
+    "reward": 2.5
+  },
+  {
+    "step": 29,
+    "reward": 2.5
+  },
+  {
+    "step": 30,
+    "reward": 2.25
+  },
+  {
+    "step": 31,
+    "reward": 2.0
+  },
+  {
+    "step": 32,
+    "reward": 2.25
+  },
+  {
+    "step": 33,
+    "reward": 0.5
+  },
+  {
+    "step": 34,
+    "reward": 2.5
+  },
+  {
+    "step": 35,
+    "reward": 1.25
+  },
+  {
+    "step": 36,
+    "reward": 1.75
+  },
+  {
+    "step": 37,
+    "reward": 2.1875
+  },
+  {
+    "step": 38,
+    "reward": 0.5
+  },
+  {
+    "step": 39,
+    "reward": 1.75
+  },
+  {
+    "step": 40,
+    "reward": 2.5
+  },
+  {
+    "step": 41,
+    "reward": 1.5
+  },
+  {
+    "step": 42,
+    "reward": 2.125
+  },
+  {
+    "step": 43,
+    "reward": 2.5
+  },
+  {
+    "step": 44,
+    "reward": 1.25
+  },
+  {
+    "step": 45,
+    "reward": 2.5
+  },
+  {
+    "step": 46,
+    "reward": 2.5
+  },
+  {
+    "step": 47,
+    "reward": 2.5
+  },
+  {
+    "step": 48,
+    "reward": 1.3125
+  },
+  {
+    "step": 49,
+    "reward": 2.0
+  },
+  {
+    "step": 50,
+    "reward": 2.5
+  },
+  {
+    "step": 51,
+    "reward": 1.4375
+  },
+  {
+    "step": 52,
+    "reward": 2.5
+  },
+  {
+    "step": 53,
+    "reward": 1.5
+  },
+  {
+    "step": 54,
+    "reward": 2.25
+  },
+  {
+    "step": 55,
+    "reward": 1.5
+  },
+  {
+    "step": 56,
+    "reward": 0.5
+  },
+  {
+    "step": 57,
+    "reward": 2.25
+  },
+  {
+    "step": 58,
+    "reward": 2.25
+  },
+  {
+    "step": 59,
+    "reward": 2.5
+  },
+  {
+    "step": 60,
+    "reward": 2.5
+  },
+  {
+    "step": 61,
+    "reward": 2.0
+  },
+  {
+    "step": 62,
+    "reward": 1.25
+  },
+  {
+    "step": 63,
+    "reward": 2.25
+  },
+  {
+    "step": 64,
+    "reward": 2.5
+  },
+  {
+    "step": 65,
+    "reward": 2.5
+  },
+  {
+    "step": 66,
+    "reward": 1.25
+  },
+  {
+    "step": 67,
+    "reward": 2.5
+  },
+  {
+    "step": 68,
+    "reward": 1.25
+  },
+  {
+    "step": 69,
+    "reward": 2.5
+  },
+  {
+    "step": 70,
+    "reward": 2.25
+  },
+  {
+    "step": 71,
+    "reward": 2.25
+  },
+  {
+    "step": 72,
+    "reward": 1.75
+  },
+  {
+    "step": 73,
+    "reward": 2.25
+  },
+  {
+    "step": 74,
+    "reward": 0.75
+  },
+  {
+    "step": 75,
+    "reward": 2.5
+  },
+  {
+    "step": 76,
+    "reward": 2.25
+  },
+  {
+    "step": 77,
+    "reward": 1.0
+  },
+  {
+    "step": 78,
+    "reward": 2.25
+  },
+  {
+    "step": 79,
+    "reward": 2.0
+  },
+  {
+    "step": 80,
+    "reward": 1.25
+  }
+]

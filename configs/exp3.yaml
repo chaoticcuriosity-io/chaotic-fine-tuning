@@ -1,0 +1,35 @@
+# Experiment 2 — Fix the regression by MATCHING the data to the goal.
+# This is configs/exp1.yaml with exactly ONE thing changed: the dataset.
+# Same model, same r/alpha/lr/epochs → a clean controlled comparison.
+# (File name exp3 keeps numbering aligned with report 03.)
+# Run: python scripts/train_lora.py --config configs/exp3.yaml
+
+# --- base model (UNCHANGED from exp1) ---
+model_name: unsloth/Qwen2.5-3B-Instruct
+load_in_4bit: false
+max_seq_length: 1024       # CHANGED: grade-school reasoning is short (~256 tok); 1024 is ample & ~4x faster
+
+# --- dataset (THE controlled change) ---
+dataset: openai/gsm8k
+dataset_config: main
+dataset_format: gsm8k      # wrap the concise CoT answer in <think>...</think>; same format, easier difficulty
+max_samples: 2000          # train[:2000] — disjoint from the test split we evaluate on
+
+# --- LoRA (UNCHANGED from exp1) ---
+lora_r: 16
+lora_alpha: 16
+lora_dropout: 0.0
+
+# --- training (UNCHANGED from exp1) ---
+num_train_epochs: 1
+max_steps: 0
+learning_rate: 0.0002
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 4
+warmup_steps: 5
+logging_steps: 1
+seed: 3407
+
+# --- output ---
+output_dir: /workspace/outputs/exp3-qwen3b-gsm8k
+run_name: exp3-qwen3b-gsm8k

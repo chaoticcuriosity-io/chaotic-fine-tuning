@@ -1,0 +1,7 @@
+{
+  "tag": "start200",
+  "model": "/workspace/outputs/exp3-qwen3b-gsm8k/merged",
+  "gsm8k_n": 200,
+  "gsm8k_accuracy": 0.7,
+  "qualitative_think_rate": 1.0
+}

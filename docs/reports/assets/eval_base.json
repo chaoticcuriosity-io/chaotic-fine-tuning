@@ -1,0 +1,7 @@
+{
+  "tag": "base",
+  "model": "unsloth/Qwen2.5-3B-Instruct",
+  "gsm8k_n": 100,
+  "gsm8k_accuracy": 0.74,
+  "qualitative_think_rate": 1.0
+}

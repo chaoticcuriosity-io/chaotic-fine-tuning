@@ -1,0 +1,7 @@
+{
+  "tag": "exp2",
+  "model": "/workspace/outputs/exp3-qwen3b-gsm8k/adapter",
+  "gsm8k_n": 100,
+  "gsm8k_accuracy": 0.68,
+  "qualitative_think_rate": 1.0
+}

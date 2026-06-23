@@ -1,0 +1,29 @@
+# Large model artifacts — these live on the Spark, never in git
+*.gguf
+*.safetensors
+*.bin
+*.pt
+outputs/
+checkpoints/
+
+# Logs
+logs/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local agent settings (machine-specific permissions, etc.)
+.claude/
+
+# Keep report figures (small) — explicitly NOT ignored:
+!docs/reports/assets/

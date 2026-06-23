@@ -1,0 +1,7 @@
+{
+  "tag": "tuned",
+  "model": "/workspace/outputs/exp1-qwen3b-reasoning/adapter",
+  "gsm8k_n": 100,
+  "gsm8k_accuracy": 0.49,
+  "qualitative_think_rate": 1.0
+}

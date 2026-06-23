@@ -1,0 +1,25 @@
+# Smoke test — validate the whole train_lora.py pipeline in ~1 minute before the real run.
+# Same as exp1 but tiny: a handful of samples, a handful of steps.
+model_name: unsloth/Qwen2.5-3B-Instruct
+load_in_4bit: false
+max_seq_length: 4096
+
+dataset: open-r1/Mixture-of-Thoughts
+dataset_config: math
+max_samples: 64
+
+lora_r: 16
+lora_alpha: 16
+lora_dropout: 0.0
+
+num_train_epochs: 1
+max_steps: 8               # stop after 8 steps — just checking the plumbing
+learning_rate: 0.0002
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 4
+warmup_steps: 2
+logging_steps: 1
+seed: 3407
+
+output_dir: /workspace/outputs/smoke
+run_name: smoke

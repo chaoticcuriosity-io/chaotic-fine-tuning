@@ -1,0 +1,31 @@
+# Experiment 1 — Teach a small model to reason (LoRA, fundamentals)
+# Run: python scripts/train_lora.py --config configs/exp1.yaml
+
+# --- base model ---
+model_name: unsloth/Qwen2.5-3B-Instruct   # canonical small reasoning base; not gated
+load_in_4bit: false        # plain (bf16) LoRA — the 3B model fits the 121 GB pool with room to spare
+max_seq_length: 4096       # reasoning traces run long (often 3000+ tokens); 4096 keeps them intact
+
+# --- dataset ---
+dataset: open-r1/Mixture-of-Thoughts
+dataset_config: math       # the math subset pairs perfectly with our GSM8K math eval
+max_samples: 2000          # subsample for a fast, legible first run (full set is ~350k)
+
+# --- LoRA adapter (see 00-primer §5) ---
+lora_r: 16                 # adapter capacity ("how many knobs we add")
+lora_alpha: 16             # adapter "volume" relative to the frozen base
+lora_dropout: 0.0
+
+# --- training ---
+num_train_epochs: 1        # one pass over the 2000 samples
+max_steps: 0               # 0 = use epochs; set >0 to cap steps (handy for a smoke test)
+learning_rate: 0.0002      # 2e-4, a standard LoRA learning rate
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 4   # effective batch size = 2 * 4 = 8
+warmup_steps: 5
+logging_steps: 1           # log loss every step so the curve is detailed
+seed: 3407
+
+# --- output ---
+output_dir: /workspace/outputs/exp1-qwen3b-reasoning
+run_name: exp1-qwen3b-reasoning

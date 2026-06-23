@@ -1,0 +1,7 @@
+{
+  "tag": "grpo",
+  "model": "/workspace/outputs/exp6-grpo-from-sft/adapter",
+  "gsm8k_n": 100,
+  "gsm8k_accuracy": 0.69,
+  "qualitative_think_rate": 1.0
+}

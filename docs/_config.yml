@@ -1,0 +1,13 @@
+title: Teaching a Model to Reason
+description: A hands-on, zero-background guide to fine-tuning language models — LoRA, QLoRA, and reinforcement learning — on an NVIDIA DGX Spark
+theme: jekyll-theme-cayman
+
+# The site is served from this docs/ folder. Every published page gets the
+# theme's default layout. GitHub Pages runs jekyll-relative-links by default,
+# so in-repo links written as `reports/00-primer.md` resolve to the rendered
+# HTML on the live site.
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default

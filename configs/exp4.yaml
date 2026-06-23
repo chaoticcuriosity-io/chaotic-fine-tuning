@@ -1,0 +1,36 @@
+# Experiment 3 — The 128 GB showcase: QLoRA a 72B model on one desktop.
+# (File name exp4 keeps numbering aligned with report 04.)
+# This is a CAPABILITY DEMO, not a maximized run: a short max_steps proves a 72B model fits in unified
+# memory and trains, and lets us measure the real memory + throughput on the GB10. Full convergence would
+# take many hours on a bandwidth-modest chip — that honesty is part of the lesson.
+# Run: python scripts/train_lora.py --config configs/exp4.yaml
+
+# --- base model ---
+model_name: unsloth/Qwen2.5-72B-Instruct-bnb-4bit   # pre-quantized 4-bit; non-gated
+load_in_4bit: true          # QLoRA: frozen base in 4-bit, train the adapter in full precision
+max_seq_length: 1024
+
+# --- dataset (same matched grade-school recipe that worked at 3B) ---
+dataset: openai/gsm8k
+dataset_config: main
+dataset_format: gsm8k
+max_samples: 1000
+
+# --- LoRA ---
+lora_r: 16
+lora_alpha: 16
+lora_dropout: 0.0
+
+# --- training (SHORT demo run) ---
+num_train_epochs: 1
+max_steps: 30               # demonstration: enough to show loss moving + measure memory/throughput
+learning_rate: 0.0002
+per_device_train_batch_size: 1     # 72B is big; keep batch small
+gradient_accumulation_steps: 4
+warmup_steps: 3
+logging_steps: 1
+seed: 3407
+
+# --- output ---
+output_dir: /workspace/outputs/exp4-qwen72b-gsm8k
+run_name: exp4-qwen72b-gsm8k
