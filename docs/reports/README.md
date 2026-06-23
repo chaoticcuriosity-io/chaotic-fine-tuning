@@ -18,7 +18,7 @@ fails.
 | 03 | [Turning the knobs](03-turning-the-knobs.md) | The controlled fix: matched data recovers 19 points (49%→68%) — data difficulty is the biggest knob | ✅ |
 | 04 | [Scaling up with QLoRA](04-scaling-up-qlora.md) | Fine-tune a **72B** model on one desktop — fit in 56 GB, ~24× slower/step (capacity vs speed) | ✅ |
 | 05 | [RL the reasoner](05-rl-the-reasoner.md) | GRPO (PPO's cousin); why RL needs headroom + an SFT cold-start — the bridge to the robot's PPO | ✅ |
-| 06 | RL that actually climbs | The from-source **vLLM** build on aarch64/Blackwell that makes a real RL accuracy gain affordable — documented win or lose | 🚧 |
+| 06 | [The vLLM build](06-the-vllm-build.md) | Compile **vLLM** from source for aarch64/Blackwell (sm_121, CUDA 13) — the torch-version vise, the v0.18.0 window that threads it, and a measured **1.8×** generation speedup | ✅ |
 
 ## The throughline
 

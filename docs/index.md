@@ -81,18 +81,19 @@ Start: [Chapter 04 — Scaling Up with QLoRA](reports/04-scaling-up-qlora.md)
 
 ---
 
-### Part IV — Reinforcement learning
-*Chapter 05 — with Chapter 06 in progress*
+### Part IV — Reinforcement learning, and the tools to afford it
+*Chapters 05–06*
 
 Supervised fine-tuning can only *imitate* the examples; to push a model **past**
 its teacher you have to reward outcomes, not copy answers. That's reinforcement
 learning — and it's the same idea, mathematically, that the sister project uses
-to teach a robot to walk.
+to teach a robot to walk. The catch is cost: RL is bottlenecked on *generation*,
+so the final chapter compiles the tool that makes generation cheap.
 
 | Chapter | Hook |
 |---|---|
 | [05 — RL the Reasoner](reports/05-rl-the-reasoner.md) | GRPO (the method behind DeepSeek-R1) is PPO minus the value network. We demonstrate its prerequisites cheaply — and prove a tempting +4-point "win" was sampling noise. *Never trust a small-sample delta.* |
-| 06 — RL That Actually Climbs *(in progress)* | The honest cliffhanger from Chapter 05: the real accuracy gain needs fast sampling, which needs **vLLM** — a from-source build on this aarch64/Blackwell box. This chapter documents that build, win or lose. |
+| [06 — The vLLM Build](reports/06-the-vllm-build.md) | Compiling vLLM from source for this aarch64 / CUDA-13 / sm_121 / NVIDIA-torch-2.10 box. A real version vise, the v0.18.0 window that threads it, and a measured 1.8× generation speedup — built, run, and benchmarked honestly. |
 
 Start: [Chapter 05 — RL the Reasoner](reports/05-rl-the-reasoner.md)
 

@@ -180,12 +180,43 @@ Final, airtight Report 05: cold-start cheap & fixed; gains need real scale (head
 vLLM); and *never trust a small-sample delta* — the same trap as the g1 cartwheel. The vLLM-from-source build
 (the genuine speed unlock) was offered but not attempted (risk on aarch64/Blackwell).
 
-## Status after Session 1
-End-to-end pipeline proven: connect → containerize → SFT (LoRA/QLoRA) → evaluate → export → serve → scale to
-72B → RL (GRPO). **All 6 reports (00–05) complete**, each with real runs + honest findings:
+### Phase O — Publishing the repo + the vLLM-from-source build (Session 2) ✅
+**Published:** `git init` + first commit → public GitHub repo `chaoticcuriosity-io/chaotic-fine-tuning`; report
+series hosted on **GitHub Pages** (Jekyll, cayman theme, served from `/docs`, same setup as g1-humanoid-rl) at
+https://chaoticcuriosity-io.github.io/chaotic-fine-tuning/ . Added `docs/_config.yml` + `docs/index.md` (the
+curriculum landing). `.claude/` gitignored. `gh api ... /pages` needs `MSYS_NO_PATHCONV=1` on Git-Bash or the
+leading-slash endpoint gets rewritten to a Windows path.
+
+**vLLM build (Report 06):**
+- **Attempt 1 (vLLM `main`) FAILED** — not on the GPU (sm_121 resolved to the `12.0f` family target fine), but
+  on host C++: vLLM's new `csrc/libtorch_stable` layer needs PyTorch 2.11's stable-ABI headers
+  (`torch/headeronly/core/Dispatch.h`, `TORCH_BOX`, expanded `torch::stable::Tensor`) — absent in our NVIDIA
+  torch 2.10. A **version vise**: newest vLLM knows our GPU but wants a newer torch than NVIDIA ships a
+  Blackwell build of (can't upgrade torch — would un-support GB10 + break Unsloth).
+- **Found the window** by walking the release tags: `libtorch_stable` first appears at v0.19.0; torch pin jumps
+  to 2.11 at v0.20.0. **v0.18.0** supports sm_121, pins torch 2.10, predates libtorch_stable → builds here.
+- **Attempt 2 (v0.18.0) SUCCEEDED.** `python use_existing_torch.py` (strip torch pins) +
+  `MAX_JOBS=8 NVCC_THREADS=2 TORCH_CUDA_ARCH_LIST=12.1 pip install --no-build-isolation --no-deps -e .` →
+  358 targets, 0 errors → editable wheel `vllm-0.18.1.dev0+...cu130 linux_aarch64`.
+- **Runs:** `--no-deps` left ~15 leaf runtime deps missing (cloudpickle, msgspec, blake3, pybase64, cbor2,
+  openai, openai-harmony, llguidance, xgrammar, …) — added back by hand; all pure-Python, torch never moved.
+  Loaded Qwen2.5-3B (~55 s), generated correct `<think>` math. Stack intact afterward (torch 2.10nv /
+  transformers 4.56.2 / trl 0.22.2 / unsloth all import).
+- **Speedup measured** (fair 32 completions × 256 forced tokens): HF `generate` **480 tok/s** vs vLLM **849
+  tok/s** = **1.8×**. CUDA graphs (`enforce_eager=False`) were *slower* on a one-shot (773 tok/s — capture cost
+  unamortized; they pay off over sustained runs). NOT wired into Unsloth GRPOTrainer end-to-end (next exercise).
+  Plot → `exp8-vllm-throughput.png`. Scripts: `bench_vllm2.py` / `bench_hf2.py`.
+- **Gotchas:** `gpt_oss_triton_kernels_moe` import warning (triton 3.4 vs vLLM-fetched 3.6 kernels) — harmless
+  for dense models. "EngineCore died" line prints at teardown — also harmless (after the result).
+
+## Status after Session 2
+End-to-end pipeline proven and **published**: connect → containerize → SFT (LoRA/QLoRA) → evaluate → export →
+serve → scale to 72B → RL (GRPO) → **vLLM built from source**. **All 7 reports (00–06) complete**; repo public
+on GitHub with a Pages site. Headline honest findings:
 - 01: reasoning LoRA installed `<think>` but regressed GSM8K 74→49%.
 - 03: matched-data fix recovered to 68% (data difficulty is the biggest knob).
 - 04: QLoRA'd 72B in 56 GB of unified memory (~24× slower/step — capacity, not speed).
 - 05: GRPO solved cold-start (format 0→0.5) but no accuracy gain at desktop scale (70→70 on 200 Q).
-Possible future work: install vLLM → redo the high-headroom exp1 GRPO run (the genuine path to a real climb);
-`git init` the repo (not yet under version control).
+- 06: vLLM v0.18.0 built for sm_121/CUDA13/torch-2.10; 1.8× generation speedup measured.
+Possible future work: wire vLLM into Unsloth's GRPOTrainer (`use_vllm=True`) and run the high-headroom exp1
+GRPO loop end-to-end — the genuine path to a real climb, now that fast generation is available.

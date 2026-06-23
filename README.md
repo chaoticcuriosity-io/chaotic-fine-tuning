@@ -16,8 +16,8 @@ answers — and we do it the way the frontier labs do:
 
 1. **Supervised Fine-Tuning (SFT)** with **LoRA** on public reasoning traces (`open-r1/Mixture-of-Thoughts`).
 2. **Scale up** the same recipe to a 70B model using **QLoRA** — something a normal GPU physically cannot do.
-3. *(future)* **Reinforcement learning (GRPO)** to push past the examples — a cousin of the **PPO** the
-   robotics project uses.
+3. **Reinforcement learning (GRPO)** to push past the examples — a cousin of the **PPO** the robotics project
+   uses — and a from-source **vLLM** build to make that RL affordable on this exotic Blackwell box.
 
 ## Start here
 
@@ -34,7 +34,7 @@ run a job, and serve the result.
 
 | Path | What it is |
 |---|---|
-| [`docs/reports/`](docs/reports) | The numbered, no-jargon learning series (00 → 05) + figures |
+| [`docs/reports/`](docs/reports) | The numbered, no-jargon learning series (00 → 06) + figures |
 | [`docs/dgx-spark-finetuning-manual.md`](docs/dgx-spark-finetuning-manual.md) | Connect / build / run / serve, copy-pasteable |
 | `scripts/` | `train_lora.py`, `export_gguf.py`, `eval_before_after.py`, `plot_loss.py` |
 | `configs/` | One YAML per experiment (model, dataset, rank, alpha, learning rate, epochs) |
@@ -51,7 +51,7 @@ run a job, and serve the result.
 
 ## Status
 
-**Session 1 complete** — the full pipeline end to end, plus a 5-part report series:
+**Sessions 1–2 complete** — the full pipeline end to end, plus a 7-part report series (00 → 06):
 
 - ✅ Connected to the Spark, built the Blackwell Unsloth container, ran a LoRA fine-tune, evaluated, exported
   GGUF, and served it in open-webui.
@@ -59,6 +59,9 @@ run a job, and serve the result.
   accuracy (74%→49%, Report 01); matching the data difficulty recovered most of it (→68%, Report 03); a 72B
   model trained in 56 GB of unified memory (Report 04); and GRPO/RL closes the loop to the G1 robot's PPO
   (Report 05).
+- ✅ **Built vLLM from source** for the Spark's aarch64 / CUDA-13 / sm_121 / NVIDIA-torch-2.10 stack — threading
+  a torch-version vise via the v0.18.0 release window — and measured a 1.8× generation speedup over
+  `transformers.generate` (Report 06).
 
 See [`setup-notes.md`](setup-notes.md) for the blow-by-blow log and [`docs/reports/`](docs/reports) for the
 series. Models, datasets, and checkpoints live on the Spark, not in git.
