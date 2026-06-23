@@ -232,7 +232,7 @@ Now the number. We raced vLLM against the plain `transformers.generate` we'd bee
 **About 1.8×.** Real, repeatable — and deliberately *not* dressed up as the "5–24×" vLLM is famous for. It's
 worth being honest about why the desktop number is smaller, because the reasons are the lesson:
 
-- **We disabled CUDA graphs** (`enforce_eager=True`) for stability on the brand-new arch. Re-running *with*
+- **We disabled CUDA graphs** (`enforce_eager=True`) for stability on the brand-new arch. (**CUDA graphs** are an optimization where the GPU records the exact sequence of GPU operations on the first pass and replays that recording on every subsequent pass, cutting per-step overhead on repetitive workloads.) Re-running *with*
   graphs was actually a hair *slower* here (773 tok/s) — capturing the graphs costs time that a single short
   run never recoups. Graphs pay off across *thousands* of steps, not one benchmark.
 - **The benchmark removes vLLM's best weapons.** PagedAttention and continuous batching win biggest with *many*

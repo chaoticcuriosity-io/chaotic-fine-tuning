@@ -35,6 +35,8 @@ a LoRA fine-tune. We are not adding knowledge; we are installing a **behavior**.
 | **Length** | `max_seq_length = 4096` | Reasoning traces are long (often 3,000+ tokens); 4,096 keeps them from being chopped mid-thought. |
 | **Schedule** | 1 epoch = **250 steps**, lr `2e-4`, effective batch 8 | One clean pass over the data; a standard LoRA learning rate. |
 
+The 250 steps falls straight out of the math: 2,000 training examples ÷ batch size 8 = 250 steps to see every example once. Each **step** is one round of the learning loop — feed a batch of 8 examples through the model, measure the loss, compute how to nudge each adapter weight (the gradients), and apply those nudges. Repeat 250 times and you've completed one epoch. The **learning rate** (`2e-4`) is how large each nudge is; `lr 2e-4` reads as "0.0002."
+
 A number worth pausing on, printed by Unsloth at the start of training:
 
 ```
@@ -94,8 +96,7 @@ yardstick, the fine-tune is a clear success. **But that is the wrong yardstick t
 ## 5. Measuring it (don't just vibe-check — count) — and a surprise
 
 Seeing `<think>` tags proves the *format* changed. The question that actually matters: did the reasoning make
-the model **better at math**? We held out **100 questions from GSM8K** — grade-school math word problems the
-model never saw in training — and scored each version (greedy decoding, exact-match on the final number).
+the model **better at math**? We held out **100 questions from GSM8K** (**G**rade **S**chool **M**ath **8K** — a standard benchmark of ~8,500 grade-school math word problems widely used in the field, which makes our numbers directly comparable to published results) — problems the model never saw in training — and scored each version (**greedy decoding** — always pick the single most-likely next token, no randomness, fully reproducible — exact-match on the final number).
 
 | Model | GSM8K accuracy (100 Qs) | Reasons in `<think>`? |
 |---|---|---|

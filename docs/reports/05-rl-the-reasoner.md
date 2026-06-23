@@ -25,10 +25,11 @@ model for finding its own path to correct answers. That signal is a **reward**, 
 
 ## 2. What GRPO does (in plain language)
 
+In RL the model is called the **policy** — the function that takes a prompt as input and produces an answer (a sequence of tokens) as output. Training the policy means adjusting it so it produces answers that earn higher rewards.
+
 **GRPO** = **Group Relative Policy Optimization** — the RL method DeepSeek used to build R1. One training step:
 
-1. **Sample a group.** For one question, let the current model generate **G** different answers (say 8). Because
-   sampling is random, they'll vary — some reason well, some don't.
+1. **Sample a group.** For one question, let the current model generate **G** different answers (say 8). **Sampling** here means generating with some randomness (unlike greedy decoding, which always picks the single most-likely token) — so you get G *different* answers, some better, some worse, which gives GRPO something to compare.
 2. **Score them.** Run each answer through **reward functions**. Ours give **+2 if the final number is correct**
    and **+0.5 if it used the `<think>…</think>` format**. No human labels — the reward is computed.
 3. **Compare within the group.** Compute each answer's reward *relative to the group's average*. Answers that

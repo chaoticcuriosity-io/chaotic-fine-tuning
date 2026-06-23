@@ -18,7 +18,7 @@ Remember from [`00-primer.md`](00-primer.md) that our LoRA adapter is a small se
 for serving it:
 
 1. **It's not a whole model.** The adapter alone is meaningless without the 3B base weights.
-2. **It's in training format.** PyTorch/Safetensors files are for *training*, not for fast local *inference*.
+2. **It's in training format.** PyTorch/Safetensors files are for *training*, not for fast local *inference* (generating text from a finished model — no gradients, no optimizer, just the forward pass).
 3. **The chat server speaks a different dialect.** Ollama (and the `llama.cpp` engine underneath it) want a
    single self-contained file in the **GGUF** format.
 
@@ -44,7 +44,7 @@ ssh spark "docker exec unsloth-dev bash -lc 'cd /workspace && \
   weights. The 0.96% we trained is now fused into the full model.
 - **Convert + quantize to GGUF:** it then writes a `.gguf` file, quantized to **`q4_k_m`** — 4-bit weights with
   a medium-quality mix (see *quantization* in [`00-primer.md`](00-primer.md) §6). This shrinks our ~6 GB
-  bf16 model to a **1.9 GB** file (`Qwen2.5-3B-Instruct.Q4_K_M.gguf`) that loads fast and runs comfortably.
+  **bf16** model (16-bit "brain float" — the default weight precision during training) to a **1.9 GB** file (`Qwen2.5-3B-Instruct.Q4_K_M.gguf`) that loads fast and runs comfortably.
 
 > The first run compiles `llama.cpp` from source inside the container (a few minutes). That's expected — GGUF
 > conversion is a `llama.cpp` tool, and on the Spark's ARM/Blackwell platform it builds on demand.
@@ -52,8 +52,12 @@ ssh spark "docker exec unsloth-dev bash -lc 'cd /workspace && \
 > **Gotcha we hit:** Unsloth writes the GGUF (and its own ready-made `Modelfile`) into a sibling directory with
 > a `_gguf` suffix — so `--out outputs/.../gguf` produces the merged 16-bit weights in `gguf/` and the actual
 > `.gguf` + `Modelfile` in **`gguf_gguf/`**. Use Unsloth's generated `Modelfile`; it already contains the
-> correct Qwen chat template and stop tokens. (It defaults to `temperature 1.5`, which is too hot for reliable
-> reasoning — we lower it to `0.7`.)
+> correct Qwen **chat template** (the exact prompt-wrapper format the model was trained on — things like
+> `<|im_start|>user` headers that tell the model where your message begins and ends) and **stop tokens**
+> (special tokens that signal the model it has finished its turn, so the server knows when to stop generating).
+> It defaults to `temperature 1.5`, which is too hot for reliable reasoning — **temperature** controls how
+> randomly the model picks each next token; near 0 it always picks the most-likely option, higher values add
+> variation and errors — we lower it to `0.7`.
 
 ---
 

@@ -7,7 +7,7 @@
 > Prerequisites: [`01-first-reasoner.md`](01-first-reasoner.md) (the regression) and
 > [`00-primer.md`](00-primer.md) (LoRA, epoch, loss).
 
-When a fine-tune regresses, the instinct is to start spinning hyperparameter dials — lower the learning rate,
+When a fine-tune regresses, the instinct is to start spinning **hyperparameter** dials — settings you choose *before* training that shape how it runs (learning rate, rank, number of steps), as distinct from the *weights*, which training itself adjusts. Lower the learning rate,
 shrink the adapter, train fewer steps. Those are real knobs (and we'll list them), but good experimental
 practice says: **form a hypothesis, then change one thing and measure.** Our post-mortem in Report 01 pointed
 at a specific culprit — not a hyperparameter at all.

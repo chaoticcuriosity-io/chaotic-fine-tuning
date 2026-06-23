@@ -248,6 +248,15 @@ So the arc of this series:
 - **Loss** — the training error number; a falling **loss curve** means learning.
 - **Overfitting** — memorizing the training set instead of generalizing.
 - **Epoch** — one full pass over the training data.
+- **Batch / batch size** — the number of training examples processed together in one step. Smaller batches = noisier loss curve; larger batches = smoother updates but slower.
+- **Step** — one round of the training loop: feed a batch of examples through the model, measure the loss, compute gradients, update the weights. With *N* examples and batch size *B*, one epoch = *N ÷ B* steps (e.g. 2,000 examples ÷ batch 8 = 250 steps).
+- **Gradient** — the calculated direction and size of each weight adjustment. Computed from the loss; tells the optimizer which way to nudge each knob.
+- **Optimizer** — the algorithm that reads the gradients and applies them to the weights. AdamW is the default; its bookkeeping is the "2× the weights" memory cost in §4.
+- **Learning rate** — how large a step the optimizer takes per update. Too high: learning is unstable and the model forgets existing skills. Too low: barely learns. `2e-4` is a well-worn LoRA starting point.
+- **Inference** — running a trained model to produce output, as opposed to *training* it. Inference doesn't need gradients, so it uses far less memory.
+- **Greedy decoding** — a generation strategy that always picks the single most-likely next token. Deterministic and reproducible, which is why it's used for evaluation.
+- **Temperature** — a dial on generation randomness. Near 0: always picks the top token (like greedy). Higher (e.g. 1.5): more varied, sometimes creative, sometimes unreliable. Usually lowered for tasks where correctness matters.
+- **bf16** — "brain float 16," a 16-bit number format for storing weights. Half the bytes of standard 32-bit floats, with enough precision for training. The default format on modern hardware like the Spark.
 - **SFT** — Supervised Fine-Tuning: learning from example responses (what we do).
 - **GRPO / PPO** — reinforcement-learning methods that shape behavior with a reward signal.
 - **GGUF** — the compact file format Ollama/llama.cpp use to run a model locally (you'll meet it in report 02).
