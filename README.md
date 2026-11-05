@@ -9,6 +9,14 @@ humanoid robot on the same Spark) — and it shows: the two projects bookend mod
 *robot* to move with RL; this one teaches a *language model* to reason, first with supervised fine-tuning and
 later with the same family of RL methods.
 
+## Learn it with an AI tutor
+
+Clone this repo, open it in Claude Code, Codex, Cursor or any coding agent, and say **"run me through this"**.
+The agent follows [`AGENTS.md`](AGENTS.md): one report per session, questions to check your understanding, and
+progress saved in `state/progress.md`. **No GPU needed:** by default you follow along with the recorded numbers,
+logs and figures. If you have a DGX Spark or a similar big-memory NVIDIA machine, the tutor can walk you through
+rerunning the experiments.
+
 ## The throughline
 
 We teach a small language model to **reason** — to think step-by-step inside `<think> … </think>` before it

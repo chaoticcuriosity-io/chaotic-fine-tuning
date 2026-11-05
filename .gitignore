@@ -25,5 +25,8 @@ Thumbs.db
 # Local agent settings (machine-specific permissions, etc.)
 .claude/
 
+# The learner's own progress file (created by the AI tutor from state/progress.template.md)
+state/progress.md
+
 # Keep report figures (small) — explicitly NOT ignored:
 !docs/reports/assets/

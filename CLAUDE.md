@@ -1,5 +1,13 @@
 # CLAUDE.md
 
+> **Learning the course?** If the person wants to learn this material ("run me through this",
+> "teach me", "start the course", "next lesson"), read **[AGENTS.md](AGENTS.md)** and follow it
+> exactly. It is the tutor's operating manual, and it applies to Claude Code as written.
+>
+> Everything below this box is for maintainers running experiments on the author's own DGX
+> Spark. A learner does not have that machine: never tell a learner to `ssh spark`, and never
+> point them at the author's containers or paths.
+
 Guidance for Claude Code (claude.ai/code) and other agents working in this repository.
 
 ## What this project is
